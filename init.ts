@@ -113,8 +113,7 @@ await Deno.writeTextFile(
   IMPORT_MAP_JSON,
 );
 
-let ROUTES_INDEX_TSX = `/** @jsx h */
-import { h } from "preact";\n`;
+let ROUTES_INDEX_TSX = ``
 if (useTwind) ROUTES_INDEX_TSX += `import { tw } from "@twind";\n`;
 ROUTES_INDEX_TSX += `import Counter from "../islands/Counter.tsx";
 
@@ -140,9 +139,7 @@ await Deno.writeTextFile(
   ROUTES_INDEX_TSX,
 );
 
-let ISLANDS_COUNTER_TSX = `/** @jsx h */
-import { h } from "preact";
-import { useState } from "preact/hooks";
+let ISLANDS_COUNTER_TSX = `import { useState } from "preact/hooks";
 import { IS_BROWSER } from "$fresh/runtime.ts";
 ${useTwind ? 'import { tw } from "@twind";\n' : ""}
 interface CounterProps {
@@ -196,9 +193,7 @@ await Deno.writeTextFile(
   ISLANDS_COUNTER_TSX,
 );
 
-const ROUTES_GREET_TSX = `/** @jsx h */
-import { h } from "preact";
-import { PageProps } from "$fresh/server.ts";
+const ROUTES_GREET_TSX = `import { PageProps } from "$fresh/server.ts";
 
 export default function Greet(props: PageProps) {
   return <div>Hello {props.params.name}</div>;
@@ -332,6 +327,10 @@ const config = {
     start: "deno run -A --watch=static/,routes/ dev.ts",
   },
   importMap: "./import_map.json",
+  compilerOptions: {
+    jsx: "react-jsx",
+    jsxImportSource: "preact"
+  }
 };
 const DENO_CONFIG = JSON.stringify(config, null, 2) + "\n";
 
